@@ -1,0 +1,12 @@
+{
+    "name": "styxit/adventofcode2018",
+    "description": "Advent of Code 2018 solutions.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Styxit",
+            "email": "info@styxit.com"
+        }
+    ],
+    "require": {}
+}
