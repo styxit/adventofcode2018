@@ -18,7 +18,8 @@ class Solution extends AbstractSolution
             $three += $countedCharacters[3];
         }
 
-        return $two * $three;
+        // Multiply 2s and 3s as the solution to part one.
+        $this->part1 = $two * $three;
     }
 
     /**

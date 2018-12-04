@@ -7,6 +7,15 @@ use Styxit\Input\Loader;
 abstract class AbstractSolution
 {
     /**
+     * @var mixed The solution to part 1 of the day.
+     */
+    public $part1;
+
+    /**
+     * @var mixed The solution to part 2 of the day.
+     */
+    public $part2;
+    /**
      * @var string Define where all the inputs are located.
      */
     private $inputRoot = __DIR__."/../inputs/";

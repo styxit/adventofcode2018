@@ -41,10 +41,11 @@ class SolvePuzzleCommand extends Command
         $solutionClass = $this->getDaySolution($day);
 
         // Create solution instance and run it.
-        $solver = new $solutionClass();
-        $solution = $solver->execute();
+        $solution = new $solutionClass();
+        $solution->execute();
 
-        $output->writeln('Solution: '.$solution);
+        $output->writeln('Solution to part 1: '.$solution->part1);
+        $output->writeln('Solution to part 2: '.$solution->part2);
     }
 
     /**

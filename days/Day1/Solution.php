@@ -28,7 +28,7 @@ class Solution extends AbstractSolution
             }
         }
 
-        // Return the final number.
-        return $frequency;
+        // Set the final number as solution for part 1.
+        $this->part1 = $frequency;
     }
 }
