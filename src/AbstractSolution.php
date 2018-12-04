@@ -4,7 +4,7 @@ namespace Styxit;
 
 use Styxit\Input\Loader;
 
-class AbstractSolution
+abstract class AbstractSolution
 {
     /**
      * @var string Define where all the inputs are located.
