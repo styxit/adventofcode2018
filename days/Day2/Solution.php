@@ -14,7 +14,7 @@ class Solution extends AbstractSolution
         // For the solution to part 2; collect the 2 lines that differ only 1 character.
         $match = [];
 
-        foreach ($this->input->lines as $line) {
+        foreach ($this->input->lines as $lineNr => $line) {
             $countedCharacters = $this->countCharacters($line);
 
             $two += $countedCharacters[2];
@@ -25,7 +25,6 @@ class Solution extends AbstractSolution
              * Compare the current line to all lines of the input to see if the diff is 1.
              */
             if (empty($match)) {
-                // @todo Performance gain; Don't loop all lines every time, make this list smaller on each run.
                 foreach ($this->input->lines as $matchingLine) {
                     // Calculate how many characters are different between two strings.
                     $matchCount = levenshtein($line, $matchingLine);
@@ -35,6 +34,9 @@ class Solution extends AbstractSolution
                         $match = [$line, $matchingLine];
                     }
                 }
+
+                // Remove the current line from the input so it is no longer used when doing the levenshtein check.
+                unset($this->input->lines[$lineNr]);
             }
         }
 
