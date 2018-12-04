@@ -11,9 +11,6 @@ class Solution extends AbstractSolution
         $two = 0;
         $three = 0;
 
-        // For the solution to part 2; collect the 2 lines that differ only 1 character.
-        $match = [];
-
         foreach ($this->input->lines as $lineNr => $line) {
             $countedCharacters = $this->countCharacters($line);
 
@@ -24,27 +21,26 @@ class Solution extends AbstractSolution
              * Part 2 requires two lines that differ exactly 1 character.
              * Compare the current line to all lines of the input to see if the diff is 1.
              */
-            if (empty($match)) {
-                foreach ($this->input->lines as $matchingLine) {
-                    // Calculate how many characters are different between two strings.
-                    $matchCount = levenshtein($line, $matchingLine);
+            if (empty($this->part2)) {
+                // Find a string that differs exactly 1 character.
+                $matchingLine = $this->findMatch($line);
 
-                    if ($matchCount === 1) {
-                        // These lines have a diff of 1 character, this is the key to the solution to part 2.
-                        $match = [$line, $matchingLine];
-                    }
+                // If a match was found the solution to part 2 can be set.
+                if ($matchingLine !== false) {
+                    /*
+                     * These lines have a diff of 1 character, this is the key to the solution to part 2.
+                     * Get the characters that are equal in the two strings and set as the solution to part 2.
+                     */
+                    $this->part2 = $this->getMatchingCharacters($line, $matchingLine);
                 }
 
-                // Remove the current line from the input so it is no longer used when doing the levenshtein check.
+                // Remove the current line from the input so it is no longer used when doing the next levenshtein check.
                 unset($this->input->lines[$lineNr]);
             }
         }
 
         // Multiply 2s and 3s as the solution to part one.
         $this->part1 = $two * $three;
-
-        // Get the characters that are equal in the two almost equal lines.
-        $this->part2 = $this->getMatchingCharacters($match[0], $match[1]);
     }
 
     /**
@@ -77,6 +73,28 @@ class Solution extends AbstractSolution
             2 => array_search(2, $filteredCharacterCount) ? 1 : 0,
             3 => array_search(3, $filteredCharacterCount) ? 1 : 0,
         ];
+    }
+
+    /**
+     * Try to find a similar string in the input that differs exactly 1 character with $search.
+     *
+     * @param string $search The string to find a match for.
+     *
+     * @return false|string The matching string or false when no match.
+     */
+    private function findMatch(string $search)
+    {
+        foreach ($this->input->lines as $matchingLine) {
+            // Calculate how many characters are different between two strings.
+            $matchCount = levenshtein($search, $matchingLine);
+
+            if ($matchCount === 1) {
+                // This line has a diff of 1 character.
+                return $matchingLine;
+            }
+        }
+
+        return false;
     }
 
     /**
